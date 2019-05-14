@@ -38,33 +38,33 @@ export class FormComponent implements OnInit {
 
   private createForm() {
     this.formGroup = this.formBuilder.group({
+      personCode: [
+        { value: undefined, disabled: false },
+        Validators.compose([])
+      ],
       firstName: [
         { value: undefined, disabled: false },
-        Validators.compose([Validators.required])
+        Validators.compose([])
       ],
       lastName: [
         { value: undefined, disabled: false },
-        Validators.compose([Validators.required])
-      ],
-      age: [
-        { value: undefined, disabled: false },
-        Validators.compose([Validators.required])
+        Validators.compose([])
       ],
       birth: [
         { value: undefined, disabled: false },
-        Validators.compose([Validators.required])
+        Validators.compose([])
       ],
       gender: [
         { value: undefined, disabled: false },
-        Validators.compose([Validators.required])
+        Validators.compose([])
       ],
       isWorking: [
         { value: false, disabled: false },
-        Validators.compose([Validators.required])
+        Validators.compose([])
       ],
       company: [
         { value: undefined, disabled: true },
-        Validators.compose([Validators.required])
+        Validators.compose([])
       ],
     });
 
