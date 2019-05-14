@@ -1,6 +1,17 @@
-<p-panel *ngFor="let item of people" [toggleable]="true">
-  <p-header>
+<p-accordion>
+  <p-accordionTab *ngFor="let item of people">
+    <p-header>
       {{item.name}}
-  </p-header>
-  
-</p-panel>
+    </p-header>
+<div>
+  <label for="item.lastName">{{item.lastName}}</label>
+</div>
+    {{item.age}}
+    {{item.dateBirth}}
+    {{item.gender}}
+    {{item.email}}
+    {{item.maritalStatus}}
+    {{item.working}}
+    {{item.company}}
+  </p-accordionTab>
+</p-accordion>

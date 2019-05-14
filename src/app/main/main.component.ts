@@ -20,7 +20,7 @@ export class MainComponent implements OnInit {
       company: 'aduhsiud',
       dateBirth: new Date(),
       email: 'asudhaisd',
-      gernder: 'F',
+      gender: 'F',
       lastName: 'ashdiasd',
       maritalStatus: 'S',
       working: true
@@ -31,7 +31,7 @@ export class MainComponent implements OnInit {
       company: 'aduhsiud',
       dateBirth: new Date(),
       email: 'asudhaisd',
-      gernder: 'F',
+      gender: 'F',
       lastName: 'ashdiasd',
       maritalStatus: 'S',
       working: true

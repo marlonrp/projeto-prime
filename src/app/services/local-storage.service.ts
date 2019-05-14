@@ -13,6 +13,6 @@ export class LocalStorageService {
   }
 
   public setPeople(people: Person[]) {
-    localStorage.setItem('people', people.toString())
+    localStorage.setItem('people', JSON.stringify(people));
   }
 }

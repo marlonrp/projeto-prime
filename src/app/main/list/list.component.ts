@@ -10,11 +10,13 @@ import { Person } from '../models/person.model';
 export class ListComponent implements OnInit {
 
   public people: Person[];
-  
+
 
   constructor(private servStored: LocalStorageService) { }
 
   ngOnInit() {
+    console.log(this.servStored.getAll());
+    // this.people = JSON.parse(this.servStored.getAll());
     this.people = JSON.parse(this.servStored.getAll());
   }
 
