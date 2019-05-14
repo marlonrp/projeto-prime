@@ -11,13 +11,22 @@ export class ListComponent implements OnInit {
 
   public people: Person[];
 
+  cols: any[];
 
   constructor(private servStored: LocalStorageService) { }
 
   ngOnInit() {
-    console.log(this.servStored.getAll());
-    // this.people = JSON.parse(this.servStored.getAll());
     this.people = JSON.parse(this.servStored.getAll());
+
+    this.cols = [
+      { field: 'age', header: 'age' },
+      { field: 'dateBirth', header: 'dateBirth' },
+      { field: 'gender', header: 'gender' },
+      { field: 'email', header: 'email' },
+      { field: 'maritalStatus', header: 'maritalStatus' },
+      { field: 'working', header: 'working' },
+      { field: 'company', header: 'company' }
+    ];
   }
 
 }
