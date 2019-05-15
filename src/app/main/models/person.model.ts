@@ -1,7 +1,7 @@
 export class Person {
     name: string;
     lastName: string;
-    age: number;
+    personCode: number;
     dateBirth: Date;
     gender: string;
     email: string;
@@ -9,3 +9,4 @@ export class Person {
     working: boolean;
     company: string;
 }
+
