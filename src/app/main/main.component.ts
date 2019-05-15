@@ -15,25 +15,36 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.people = [{
-      name: 'oiasd',
-      age: 21,
-      company: 'aduhsiud',
-      dateBirth: new Date(),
-      email: 'asudhaisd',
-      gender: 'F',
-      lastName: 'ashdiasd',
-      maritalStatus: 'S',
+      name: 'Elison',
+      personCode: 21,
+      company: 'Senior Sistemas',
+      dateBirth: new Date('1998/02/20'),
+      email: 'elison@senior.com',
+      gender: 'M',
+      lastName: 'Lamim',
+      maritalStatus: 'Solteiro(a)',
       working: true
     },
     {
-      name: 'uiii',
-      age: 21,
-      company: 'aduhsiud',
-      dateBirth: new Date(),
+      name: 'Marlon',
+      personCode: 25,
+      company: 'Senior Sistemas',
+      dateBirth: new Date('1994/02/26'),
+      email: 'marlon@senior.com',
+      gender: 'M',
+      lastName: 'Ribeiro',
+      maritalStatus: 'Solteiro(a)',
+      working: true
+    },
+    {
+      name: 'Rayany',
+      personCode: 21,
+      company: 'Atol Pet',
+      dateBirth: new Date('1997/11/15'),
       email: 'asudhaisd',
       gender: 'F',
-      lastName: 'ashdiasd',
-      maritalStatus: 'S',
+      lastName: 'Facion',
+      maritalStatus: 'Solteiro(a)',
       working: true
     }];
 

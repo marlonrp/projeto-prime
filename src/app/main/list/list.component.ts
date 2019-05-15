@@ -19,13 +19,15 @@ export class ListComponent implements OnInit {
     this.people = JSON.parse(this.servStored.getAll());
 
     this.cols = [
-      { field: 'age', header: 'age' },
-      { field: 'dateBirth', header: 'dateBirth' },
-      { field: 'gender', header: 'gender' },
+      { field: 'personCode', header: 'Código da matrícula' },
+      { field: 'name', header: 'Nome' },
+      { field: 'lastName', header: 'Sobrenome' },
+      { field: 'dateBirth', header: 'Data de nascimento' },
+      { field: 'gender', header: 'Sexo' },
       { field: 'email', header: 'email' },
-      { field: 'maritalStatus', header: 'maritalStatus' },
-      { field: 'working', header: 'working' },
-      { field: 'company', header: 'company' }
+      { field: 'maritalStatus', header: 'Estado civil' },
+      { field: 'working', header: 'Trabalhando' },
+      { field: 'company', header: 'Empresa' }
     ];
   }
 
