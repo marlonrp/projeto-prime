@@ -1,11 +1,12 @@
 export class Person {
-    name: string;
-    lastName: string;
     personCode: number;
-    dateBirth: Date;
+    firstName: string;
+    lastName: string;
+    birth: Date;
     gender: string;
-    email: string;
     maritalStatus: string;
+    email: string;
+    phoneNumber?: number;
     working: boolean;
     company: string;
 }

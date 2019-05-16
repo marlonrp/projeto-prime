@@ -1,8 +1,8 @@
 <p-tabView>
   <p-tabPanel header="Cadastro de Pessoa" [selected]="true">
-    <app-form></app-form>
+    <app-form (peopleEvent)="changePeopleRegistered($event)"></app-form>
   </p-tabPanel>
   <p-tabPanel header="Consultar">
-    <app-list></app-list>
+    <app-list [peopleRegisteredObservable]="peopleRegisteredObservable"></app-list>
   </p-tabPanel>
 </p-tabView>

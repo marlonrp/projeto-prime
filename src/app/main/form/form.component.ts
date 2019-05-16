@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Person } from '../models/person.model';
 
 @Component({
   selector: 'app-form',
@@ -7,12 +9,23 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
   styleUrls: ['./form.component.sass']
 })
 export class FormComponent implements OnInit {
+  @Output() peopleEvent = new EventEmitter();
+  public peopleRegistered: Person[];
   public formGroup: FormGroup;
   public genders = [
     {label: 'Masculino', value: 'male'},
     {label: 'Feminino', value: 'female'},
     {label: 'Outros', value: 'others'}
   ];
+
+  public maritalStatus = [
+    {label: 'Solteiro(a)', value: 'single'},
+    {label: 'Casado(a)', value: 'married'},
+    {label: 'Viúvo(a)', value: 'widower'},
+    {label: 'Divorciado(a)', value: 'divorced'}
+  ];
+
+  public isLoading = false;
 
   public locale = {
     firstDayOfWeek: 0,
@@ -26,13 +39,19 @@ export class FormComponent implements OnInit {
     today: 'Today',
     clear: 'Clear',
     dateFormat: 'mm/dd/yy'
-};
+  };
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
+    this.peopleRegistered =
+      JSON.parse(this.localStorageService.getAll()) ?
+      JSON.parse(this.localStorageService.getAll()) :
+      [];
+    this.peopleEvent.emit(this.peopleRegistered);
     this.createForm();
   }
 
@@ -58,6 +77,18 @@ export class FormComponent implements OnInit {
         { value: undefined, disabled: false },
         Validators.compose([])
       ],
+      maritalStatus: [
+        { value: false, disabled: false },
+        Validators.compose([])
+      ],
+      email: [
+        { value: undefined, disabled: false },
+        Validators.compose([Validators.email])
+      ],
+      phoneNumber: [
+        { value: undefined, disabled: false },
+        Validators.compose([])
+      ],
       isWorking: [
         { value: false, disabled: false },
         Validators.compose([])
@@ -65,7 +96,7 @@ export class FormComponent implements OnInit {
       company: [
         { value: undefined, disabled: true },
         Validators.compose([])
-      ],
+      ]
     });
 
     this.formGroup.get('isWorking').valueChanges.subscribe((isWorking) => {
@@ -81,7 +112,16 @@ export class FormComponent implements OnInit {
     if (!this.formGroup.valid) {
       return this.validateAllFormFields(this.formGroup);
     }
-    console.log(this.formGroup.value);
+    this.isLoading = true;
+    const {value} = this.formGroup;
+    value.maritalStatus = value.maritalStatus.value;
+    this.peopleRegistered.push(value);
+    this.localStorageService.setPeople(this.peopleRegistered);
+    this.peopleEvent.emit(this.peopleRegistered);
+    this.formGroup.reset();
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
   }
 
   private validateAllFormFields(formGroup: FormGroup) {

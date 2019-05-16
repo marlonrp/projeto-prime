@@ -14,6 +14,8 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputMaskModule } from 'primeng/inputmask';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,7 +46,9 @@ import { ListComponent } from './main/list/list.component';
     MessagesModule,
     MessageModule,
     CheckboxModule,
-    DropdownModule
+    DropdownModule,
+    InputMaskModule,
+    ProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
