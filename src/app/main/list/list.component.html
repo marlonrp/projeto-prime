@@ -1,23 +1,83 @@
-<p-table *ngIf="people && people.length" [value]="people">
-  <ng-template pTemplate="header">
-    <tr>
-      <th *ngFor="let col of cols">
-        <span>
-          {{col.header}}
-        </span>
-      </th>
-    </tr>
+<p-dataView *ngIf="people && people.length" #dv [value]="people" [paginator]="true" [rows]="5" paginatorPosition="bottom" filterBy="firstName"
+  [sortField]="sortField" [sortOrder]="sortOrder">
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">
+          <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordernar" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+        </div>
+        <div class="ui-g-6 ui-md-4 filter-container">
+          <div style="position:relative">
+            <input type="search" pInputText placeholder="Pesquisa por nome" (keyup)="dv.filter($event.target.value)">
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-4" style="text-align:right">
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        </div>
+      </div>
+    </div>
+  </p-header>
+  <ng-template let-person pTemplate="listItem">
+    <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+      <div class="ui-g-12 ui-md-3" style="text-align:center">
+        <img src="assets/img/person.png" id="personPhoto" alt="personPhoto">
+      </div>
+      <div class="ui-g-12 ui-md-8 person-details">
+        <div class="ui-g">
+          <div class="ui-g-3 ui-sm-6">Código: </div>
+          <div class="ui-g-9 ui-sm-6"><strong>{{person.personCode}}</strong></div>
+          
+          <div class="ui-g-3 ui-sm-6">Nome: </div>
+          <div class="ui-g-9 ui-sm-6"><strong>{{person.firstName}}</strong></div>
+          
+          <div class="ui-g-3 ui-sm-6">Sobrenome: </div>
+          <div class="ui-g-9 ui-sm-6"><strong>{{person.lastName}}</strong></div>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-1 search-icon">
+        <button pButton type="button" icon="pi pi-search" (click)="selectPerson($event, person)"></button>
+      </div>
+    </div>
   </ng-template>
-  <ng-template pTemplate="body" let-person>
-    <tr>
-      <td *ngFor="let col of cols">
-        <span>
-          {{person[col.field]}}
-        </span>
-      </td>
-    </tr>
+  <ng-template let-person pTemplate="gridItem">
+    <div style="padding:.5em" class="ui-g-12 ui-md-3">
+      <p-panel [header]="person.personCode" [style]="{'text-align':'center'}">
+        <img src="assets/img/person.png" width="60" alt="PersonPhoto">
+        <div class="person-detail">{{person.firstName}} {{person.lastName}}</div>
+        <hr class="ui-widget-content" style="border-top:0">
+        <button pButton type="button" icon="pi pi-search" (click)="selectPerson($event, person)" style="margin-top:0"></button>
+      </p-panel>
+    </div>
   </ng-template>
-</p-table>
+</p-dataView>
+
+<p-dialog header="Detalhe da Pessoa" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '500px'}"  (onAfterHide)="onDialogHide()">
+  <div class="ui-g" *ngIf="selectedPerson">
+    <div class="ui-g-12" style="text-align:center">
+      <img src="assets/img/person.png" alt="PersonPhoto" id="smallPersonPhoto">
+    </div>
+    <div class="ui-g-4">Nome completo: </div>
+    <div class="ui-g-8">{{selectedPerson.firstName}} {{selectedPerson.lastName}}</div>
+    
+    <div class="ui-g-4">Nascimento: </div>
+    <div class="ui-g-8">{{selectedPerson.birth}}</div>
+    
+    <div class="ui-g-4">Sexo: </div>
+    <div class="ui-g-8">{{selectedPerson.gender}}</div>
+    
+    <div class="ui-g-4">Estado civíl: </div>
+    <div class="ui-g-8">{{selectedPerson.maritalStatus}}</div>
+
+    <div class="ui-g-4">E-mail: </div>
+    <div class="ui-g-8">{{selectedPerson.email}}</div>
+
+    <div *ngIf="selectedPerson.phoneNumber" class="ui-g-4">Telefone: </div>
+    <div *ngIf="selectedPerson.phoneNumber" class="ui-g-8">{{selectedPerson.phoneNumber}}</div>
+
+    <div *ngIf="selectedPerson.company" class="ui-g-4">Empresa: </div>
+    <div *ngIf="selectedPerson.company" class="ui-g-8">{{selectedPerson.company}}</div>
+  </div>
+</p-dialog>
 <div *ngIf="people && !people.length" id="emptyState">
   <p>Não há registros</p>
 </div>
