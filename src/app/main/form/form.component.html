@@ -1,37 +1,57 @@
 
 <form [formGroup]="formGroup">
   <div class="ui-g ui-fluid">
-    <div class="ui-g-12 ui-md-4 required">
-      <label>Código da matrícula</label>
-      <p-spinner [required]="true" [type]="'number'" [min]="0" [step]="1" formControlName="personCode" placeholder="Digite o número da matrícula"></p-spinner>
-      <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['personCode'].valid && formGroup.controls['personCode'].dirty"></p-message>
+    <div *ngIf="isLoading" class="ui-g-12 ui-md-12 loading">
+      <p-progressSpinner></p-progressSpinner>
     </div>
-    <div class="ui-g-12 ui-md-4 required">
-      <label>Nome</label>
-      <input [required]="true" id="input" type="text" size="30" pInputText formControlName="firstName" placeholder="Informe seu nome">
-      <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['firstName'].valid && formGroup.controls['firstName'].dirty"></p-message>
-    </div>
-    <div class="ui-g-12 ui-md-4 required">
-      <label>Sobrenome</label>
-      <input [required]="true" id="input" type="text" size="30" pInputText formControlName="lastName" placeholder="Informe seu sobrenome">
-      <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['lastName'].valid && formGroup.controls['lastName'].dirty"></p-message>
-    </div>
-    <div class="ui-g-12 ui-md-4 required">
-      <label>Data de nascimento</label>
-      <p-calendar [required]="true" dateFormat="dd/mm/yy" [showIcon]="true" [locale]="locale" formControlName="birth" placeholder="Informe sua data de nascimento"></p-calendar>
-      <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['birth'].valid && formGroup.controls['birth'].dirty"></p-message>
-    </div>
-    <div class="ui-g-12 ui-md-4 required">
-      <label>Sexo</label>
-      <p-selectButton [required]="true" [options]="genders" formControlName="gender"></p-selectButton>
-      <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['gender'].valid && formGroup.controls['gender'].dirty"></p-message>
-    </div>
-    <div class="ui-g-12 ui-md-4 required">
-      <label>Trabalha?</label>
-      <p-checkbox class="checkbox__margin-left" binary="true" formControlName="isWorking"></p-checkbox>
-      <div *ngIf="formGroup.controls['isWorking'].value">
-        <input [required]="true" id="input" type="text" size="30" pInputText formControlName="company" placeholder="Digite seu local de trabalho"> 
-        <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['company'].valid && formGroup.controls['company'].dirty"></p-message>
+    <div *ngIf="!isLoading">
+      <div class="ui-g-12 ui-md-4 required">
+        <label>Código</label>
+        <p-spinner [required]="true" [type]="'number'" [min]="0" [step]="1" formControlName="personCode" placeholder="Digite o número da matrícula"></p-spinner>
+        <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['personCode'].valid && formGroup.controls['personCode'].dirty"></p-message>
+      </div>
+      <div class="ui-g-12 ui-md-4 required">
+        <label>Nome</label>
+        <input [required]="true" id="input" type="text" size="30" pInputText formControlName="firstName" placeholder="Informe seu nome">
+        <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['firstName'].valid && formGroup.controls['firstName'].dirty"></p-message>
+      </div>
+      <div class="ui-g-12 ui-md-4 required">
+        <label>Sobrenome</label>
+        <input [required]="true" id="input" type="text" size="30" pInputText formControlName="lastName" placeholder="Informe seu sobrenome">
+        <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['lastName'].valid && formGroup.controls['lastName'].dirty"></p-message>
+      </div>
+      <div class="ui-g-12 ui-md-4 required">
+        <label>Data de nascimento</label>
+        <p-calendar [required]="true" dateFormat="dd/mm/yy" [showIcon]="true" [locale]="locale" formControlName="birth" placeholder="Informe sua data de nascimento"></p-calendar>
+        <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['birth'].valid && formGroup.controls['birth'].dirty"></p-message>
+      </div>
+      <div class="ui-g-12 ui-md-4 required">
+        <label>Sexo</label>
+        <p-selectButton [required]="true" [options]="genders" formControlName="gender"></p-selectButton>
+        <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['gender'].valid && formGroup.controls['gender'].dirty"></p-message>
+      </div>
+      <div class="ui-g-12 ui-md-4 required">
+        <label>Estado civíl</label>
+        <p-dropdown [required]="true" [options]="maritalStatus" formControlName="maritalStatus" placeholder="Selecione o estado civíl" optionLabel="label"></p-dropdown>
+        <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['maritalStatus'].valid && formGroup.controls['maritalStatus'].dirty"></p-message>
+      </div>
+      <div class="ui-g-12 ui-md-4 required">
+        <label>E-mail</label>
+        <input [required]="true" id="input" type="email" size="50" pInputText formControlName="email" placeholder="Informe seu e-mail">
+        <p-message severity="error" text="Campo obrigatório" *ngIf="formGroup.controls['email'].errors?.required && formGroup.controls['email'].dirty"></p-message>
+        <p-message severity="error" text="E-mail inválido" *ngIf="formGroup.controls['email'].errors?.email && formGroup.controls['email'].dirty"></p-message>
+      </div>
+      <div class="ui-g-12 ui-md-4 required">
+        <label>Número de telefone</label>>
+        <p-inputMask id="input" mask="(99) 9 9999-9999" formControlName="phoneNumber" placeholder="(99) 9 999-9999"></p-inputMask>
+      </div>
+      <div class="ui-g-12 ui-md-4 required">
+        <label>Trabalha?</label>
+        <p-checkbox class="checkbox__margin-left" binary="true" formControlName="isWorking"></p-checkbox>
+        <div *ngIf="formGroup.controls['isWorking'].value">
+          <input [required]="true" id="input" type="text" size="30" pInputText formControlName="company" placeholder="Digite seu local de trabalho"> 
+          <p-message severity="error" text="Campo obrigatório" *ngIf="!formGroup.controls['company'].valid && formGroup.controls['company'].dirty"></p-message>
+        </div>
       </div>
     </div>
   </div>
